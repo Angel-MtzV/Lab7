@@ -4,3 +4,4 @@ Lab Parters
     - Anokhi Mehta
 
 Github Pages URL
+https://angel-mtzv.github.io/Lab7/
