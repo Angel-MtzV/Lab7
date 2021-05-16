@@ -41,7 +41,7 @@ router.setState = function(state, index) {
       break;
     
     case '{home}':
-      history.pushState(state, "Journal Entries", "/");
+      history.pushState(state, "Journal Entries", "/Lab7/");
       break;
     
     case '{entry}':
