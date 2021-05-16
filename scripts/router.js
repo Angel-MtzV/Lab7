@@ -5,7 +5,7 @@ export const router = {};
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
-router.setState = function() {
+router.setState = function(state, index) {
   /**
    * - There are three states that your SPA app will have
    *    1. The home page
@@ -35,4 +35,57 @@ router.setState = function() {
    *    1. You may add as many helper functions in this file as you like
    *    2. You may modify the parameters of setState() as much as you like
    */
+  switch(state) {
+    case "{settings}":
+      history.pushState(state, "Settings", "/#settings");
+      break;
+    
+    case '{home}':
+      history.pushState(state, "Journal Entries", "/");
+      break;
+    
+    case '{entry}':
+      history.pushState(state, "Entry " + index, "/#entry" + index);
+      break;
+  }
 }
+
+
+
+window.addEventListener('popstate', (event) => {
+  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+  
+  switch(event.state) {
+    case "{settings}":
+      document.querySelector("body").className = "settings";
+      document.querySelector("h1").innerHTML = "Settings";
+      break;
+    
+    case '{home}':
+      document.querySelector("body").className = "";
+      document.querySelector("h1").innerHTML = "Journal Entries";
+      break;
+    
+    case '{entry}':
+      document.querySelector("body").className = "single-entry";
+      let location = "" + document.location;
+      let length = location.length;
+      let idx = 0;
+
+      if((location.charAt(length-2) >= 0) || (location.charAt(length-2) <= 9)){
+        idx = location.substring(length-2);
+      }
+      
+      else{
+        idx = location.charAt(length-1);
+      }
+
+      document.querySelector("h1").innerHTML = "Entry " + idx;
+      break;
+    
+    case null:
+      document.querySelector("body").className = "";
+      document.querySelector("h1").innerHTML = "Journal Entries";
+
+  }
+})
